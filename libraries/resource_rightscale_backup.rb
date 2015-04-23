@@ -108,6 +108,7 @@ class Chef
           :devices,
           arg,
           :kind_of => Array
+          default: nil
         )
       end
 
@@ -122,6 +123,7 @@ class Chef
           :device_excludes,
           arg,
           :kind_of => Array
+          default: nil
         )
       end
       

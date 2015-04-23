@@ -261,8 +261,8 @@ class Chef
           attachment.resource_uid =~ /\/disks\/boot-/ ||
           (node['cloud']['provider'] == 'ec2' && attachment.device_id == '/dev/sda1') ||
           (node['cloud']['provider'] == 'cloudstack' && attachment.device_id == 'device_id:0') ||
-          (devices != nil && !devices.include? attachment.device) ||
-          (device_excludes != nil && device_excludes.include? attachment.device)
+          (devices != nil && !devices.include?(attachment.device)) ||
+          (device_excludes != nil && device_excludes.include?(attachment.device))
         end
 
         attachments.map { |attachment| attachment.href }
