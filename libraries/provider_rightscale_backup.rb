@@ -254,11 +254,15 @@ class Chef
         #   - gce boot disk - shown by resource_uid of /disks/boot-*
         #   - aws ebs boot disk  - shown by device_id as '/dev/sda1'
         #   - cloudstack boot disk  - shown by device_id as 'device_id:0'
+        #   - devices not in the device parameter (if - defined)
+        #   - devices in the device_excludes parameter (if - defined)
         attachments.reject! do |attachment|
           attachment.device == 'unknown' ||
           attachment.resource_uid =~ /\/disks\/boot-/ ||
           (node['cloud']['provider'] == 'ec2' && attachment.device_id == '/dev/sda1') ||
-          (node['cloud']['provider'] == 'cloudstack' && attachment.device_id == 'device_id:0')
+          (node['cloud']['provider'] == 'cloudstack' && attachment.device_id == 'device_id:0') ||
+          (devices != nil && !devices.include? attachment.device) ||
+          (device_excludes != nil && device_excludes.include? attachment.device)
         end
 
         attachments.map { |attachment| attachment.href }

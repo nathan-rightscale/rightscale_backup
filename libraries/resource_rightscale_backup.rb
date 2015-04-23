@@ -111,6 +111,20 @@ class Chef
         )
       end
 
+      # Devices to be excluded from backup.
+      #
+      # @param arg [Array<String>] the devices to be excluded from backup
+      #
+      # @return [Array<String>] the devices to be excluded from backup
+      #
+      def device_excludes(arg = nil)
+        set_or_return(
+          :device_excludes,
+          arg,
+          :kind_of => Array
+        )
+      end
+      
       # Flag to specify that the backup was taken from a master (usually database).
       # By default, this value is false.
       #
